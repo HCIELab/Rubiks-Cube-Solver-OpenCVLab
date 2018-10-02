@@ -127,6 +127,9 @@ def scan():
     colorcal  = {}                          # color calibration dictionary
     color = ['white', 'green', 'red', 'orange', 'yellow', 'blue']  # list of valid colors            
     
+    # create trackbars here
+    cv2.createTrackbar('H Upper',"default",defaultcal[color[len(colorcal)]][0][0],179, empty_callaback)
+    cv2.createTrackbar('H Lower',"default",defaultcal[color[len(colorcal)]][0][1],179, empty_callaback)
 
     colorcal = defaultcal
 
@@ -194,13 +197,20 @@ def scan():
             colorcal = {}   
             while len(colorcal) < 6:
                 _, frame = cam.read()
-                # create trackbars for color change
+                
                 
                 hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
                 key = cv2.waitKey(10) & 0xff
 
-                # your code here (get trackbars values)
-
+                # hue upper lower
+                hu = cv2.getTrackbarPos('H Upper','default')
+                su = cv2.getTrackbarPos('H Lower','default')
+                # saturation upper lower
+                su = None # yourcode here
+                sl = None # yourcode here
+                # value upper lower
+                vu = None # yourcode here
+                vl = None # yourcode here
 
                 if color[len(colorcal)] == 'red' or color[len(colorcal)] == 'orange':
                     lower_hsv = np.array([0,sl,vl])
@@ -217,7 +227,9 @@ def scan():
                     lower_hsv = np.array([hl,sl,vl])
                     upper_hsv = np.array([hu,su,vu])
                     
-                    # your code here create masked image
+                    # Task 3
+                    mask = None # your code here
+                    res = None # your code here
                 
                 if key == 32:
                     defaultcal[color[len(colorcal)]] = [upper_hsv,lower_hsv]
