@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Filename      : colordetection.py
-# Author        : Kim K
-# Created       : Tue, 26 Jan 2016
-# Last Modified : Sun, 31 Jan 2016
-
 
 from sys import exit as Die
 try:

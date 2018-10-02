@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Filename      : video.py
-# Author        : Kim K
-# Created       : Fri, 29 Jan 2016
-# Last Modified : Sun, 31 Jan 2016
 
 ## Import the relevant files
 from sys import exit as Die
@@ -17,15 +13,15 @@ except ImportError as err:
 
 '''
 Testing variable
-set to false to start task 3 
+set to false to start task 2 & 3
 '''
 cameratesting = True 
 
 '''
 Initialize the camera here
 '''
-cam_port         = # your code here task 1.1
-cam              = #
+cam_port         = None # your code here task 1.1
+cam              = None # your code here task 1.1
 
 
 
@@ -49,7 +45,7 @@ cam              = #
 
     *note shorten split
 """
-stickers         = [[200, 120], [300, 120], [400, 120],
+detector_stickers = [[200, 120], [300, 120], [400, 120],
                    [200, 220], [300, 220], [400, 220],
                    [200, 320], [300, 320], [400, 320]]
 
@@ -57,21 +53,24 @@ current_stickers = [[20, 20], [54, 20], [88, 20],
                    [20, 54], [54, 54], [88, 54],
                    [20, 88], [54, 88], [88, 88]]
 
-preview_stickers = [[20, 130], [54, 130], [88, 130],
+recorded_stickers = [[20, 130], [54, 130], [88, 130],
                    [20, 164], [54, 164], [88, 164],
                    [20, 198], [54, 198], [88, 198]]
 
 
-def draw_main_stickers(frame):
+def draw_detector_stickers(frame):
     """Draws the 9 stickers in the frame."""
+    pass
     # your code here task 2.1
 
 def draw_current_stickers(frame, state):
     """Draws the 9 current stickers in the frame."""
+    pass
     # your code here task 2.2
 
-def draw_preview_stickers(frame, state):
+def draw_recorded_stickers(frame, state):
     """Draws the 9 preview stickers in the frame."""
+    pass
     # your code here task 2.3
 
 def color_to_notation(color):
@@ -144,16 +143,16 @@ def scan():
         #task 1.7 display the masked image
 
 
-    while True:
-        _, frame = # your code here
-        hsv =      #
-        key =      #
+    while not cameratesting:
+        _, frame = None # your code here
+        hsv = None      # your code here
+        key = None      # your code here
 
         # init certain stickers.
-        draw_main_stickers(frame)
-        draw_preview_stickers(frame, preview)
+        draw_detector_stickers(frame)
+        draw_recorded_stickers(frame, preview)
 
-        for index,(x,y) in enumerate(stickers):
+        for index,(x,y) in enumerate(detector_stickers):
             roi          = hsv[y:y+32, x:x+32]              # extracts hsv values within sticker
             avg_hsv      = ColorDetector.median_hsv(roi)    # filters the hsv values into one hsv
             color_name   = ColorDetector.get_color_name(avg_hsv,colorcal) # extracts the color based on hsv
@@ -162,7 +161,7 @@ def scan():
             # update when space bar is pressed.
             if key == 32:
                 preview = list(state)
-                draw_preview_stickers(frame, state)         # draw the saved colors on the preview
+                draw_recorded_stickers(frame, state)         # draw the saved colors on the preview
                 face = color_to_notation(state[4])          # convert the color to notation of the middle sticker and label this as the face
                 notation = [color_to_notation(color) for color in state] # convert all colors to notation
                 sides[face] = notation                      # update the face in the sides dictionary
@@ -173,6 +172,16 @@ def scan():
         # append amount of scanned sides
         text = 'scanned sides: {}/6'.format(len(sides))
         cv2.putText(frame, text, (20, 460), cv2.FONT_HERSHEY_TRIPLEX, 0.5, (255,255,255), 1, cv2.LINE_AA)
+        
+        # indicate the scanning instruction
+        textInstruction = 'scan and rotate the cube with white on the top and green on the front (towards camera)'
+        textInstruction2 = 'the color of center brick is used as the side identifier (since the center brick does not move)'
+        textInstruction3 = 'you can scan as many times as you want'
+        textInstruction4 = 'the program will overwrite the old scan when same side is detected'
+        cv2.putText(frame, textInstruction, (20, 600), cv2.FONT_HERSHEY_TRIPLEX, 0.5, (255,255,255), 1, cv2.LINE_AA)
+        cv2.putText(frame, textInstruction2, (20, 620), cv2.FONT_HERSHEY_TRIPLEX, 0.5, (255,255,255), 1, cv2.LINE_AA)
+        cv2.putText(frame, textInstruction3, (20, 640), cv2.FONT_HERSHEY_TRIPLEX, 0.5, (255,255,255), 1, cv2.LINE_AA)
+        cv2.putText(frame, textInstruction4, (20, 660), cv2.FONT_HERSHEY_TRIPLEX, 0.5, (255,255,255), 1, cv2.LINE_AA)
 
         # quit on escape.
         if key == 27:
@@ -227,7 +236,7 @@ def scan():
                 cv2.putText(res, text, (20, 460), cv2.FONT_HERSHEY_TRIPLEX, 0.5, (255,255,255), 1, cv2.LINE_AA)
 
                 cv2.imshow("default", res)
-                # quit on escape.
+                # quit on escape key.
                 if key == 27:
                     break
 
