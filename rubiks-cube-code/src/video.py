@@ -127,11 +127,23 @@ def scan():
     colorcal  = {}                          # color calibration dictionary
     color = ['white', 'green', 'red', 'orange', 'yellow', 'blue']  # list of valid colors            
     
+    cv2.namedWindow('default',0)
     # create trackbars here
     cv2.createTrackbar('H Upper',"default",defaultcal[color[len(colorcal)]][0][0],179, empty_callaback)
     cv2.createTrackbar('H Lower',"default",defaultcal[color[len(colorcal)]][0][1],179, empty_callaback)
 
+    # Remember that the range for S and V are not 0 to 179
+    # make four more trackbars for ('S Upper', 'S Lower', 'V Upper', 'V Lower')
+    # Note you should use these trackbar names to make other parts of the code run properly
+
+
     colorcal = defaultcal
+
+    ##################################################
+    # Task 1: you can insert out of the loop code here
+    ##################################################
+
+
 
     while cameratesting:
         '''
@@ -204,7 +216,7 @@ def scan():
 
                 # hue upper lower
                 hu = cv2.getTrackbarPos('H Upper','default')
-                su = cv2.getTrackbarPos('H Lower','default')
+                hl = cv2.getTrackbarPos('H Lower','default')
                 # saturation upper lower
                 su = None # yourcode here
                 sl = None # yourcode here
