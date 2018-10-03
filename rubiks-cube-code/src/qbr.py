@@ -27,12 +27,7 @@ class Qbr:
             print('Please try again.\033[0m')
             Die(1)
 
-        print(state)
         unsolvedState = combine.sides(state)
-        print(unsolvedState)
-        print(type(unsolvedState))
-        # unsolvedState = 'FDRUUUDFDLFDRRLBUDFRFBFBLDLUFURDRBFLUBRLLDUDFBLRUBBBLR'
-        # print(unsolvedState)
         try:
             algorithm     = kociemba.solve(unsolvedState)
             length        = len(algorithm.split(' '))
