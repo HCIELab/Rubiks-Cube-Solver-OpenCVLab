@@ -88,7 +88,7 @@ def color_to_notation(color):
     }
     return notation[color]
 
-def empty_callaback(x):
+def empty_callback(x):
     '''
     Empty function for callback when slider positions change. Need input x, this is the value 
     the slider has changed to. You don't need to do anything in this function.
@@ -129,8 +129,8 @@ def scan():
     
     cv2.namedWindow('default',0)
     # create trackbars here
-    cv2.createTrackbar('H Upper',"default",defaultcal[color[len(colorcal)]][0][0],179, empty_callaback)
-    cv2.createTrackbar('H Lower',"default",defaultcal[color[len(colorcal)]][0][1],179, empty_callaback)
+    cv2.createTrackbar('H Upper',"default",defaultcal[color[len(colorcal)]][0][0],179, empty_callback)
+    cv2.createTrackbar('H Lower',"default",defaultcal[color[len(colorcal)]][0][1],179, empty_callback)
 
     # Remember that the range for S and V are not 0 to 179
     # make four more trackbars for ('S Upper', 'S Lower', 'V Upper', 'V Lower')
